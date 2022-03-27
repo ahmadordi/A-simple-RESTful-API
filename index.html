@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <link rel="icon" href="assets/img/favicon.png">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Code Challenge</title>
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css">
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.semanticui.min.css">
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.semanticui.min.css">
+   </head>
+   <body>
+      <div class="ui container">
+         <div class="ui segment">
+            <div class="ui  segment" style="margin-top:20px;">
+               <div class="ui form">
+                  <div class="three fields">
+                     <div class="field">
+                        <label>Start date from</label>
+                        <div class="ui calendar" id="rangestart">
+                           <div class="ui input left icon">
+                              <i class="calendar icon"></i>
+                              <input id="dateFromInput" type="text" placeholder="Start date from" autocomplete="off">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="field">
+                        <label>End date to</label>
+                        <div class="ui calendar" id="rangeend">
+                           <div class="ui input left icon">
+                              <i class="calendar icon"></i>
+                              <input id="dateToInput" type="text" placeholder="End date to" autocomplete="off">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="field">
+                     </div>
+                  </div>
+                  <button id="searchBtn" class="ui blue labeled icon button"><i class="icon search"></i>Search</button>
+                  <br>
+                  <span id="emptyErrorTxt" class="ui red normal text" style="display:none;">Please select first a date range</span>
+               </div>
+            </div>
+            <button  id="tableReloadBtn" class="ui green labeled icon button"><i class="icon sync"></i> Load whole data</button>
+            <span id="countResult" class="ui teal text"></span>
+            <!-- <span  id="loadingTable" class="ui active centered inline red fast loader" style="display:none;"></span> -->
+            <br>  <br>
+            <span id="errorMsg" class="ui red big text" style="display:none;">Something went wrong!</span>
+            <table id="citiesTable" class="ui celled striped table" style="width:100%;">
+               <thead>
+                  <tr>
+                     <th>City</th>
+                     <th>Start date</th>
+                     <th>End date</th>
+                     <th>Price</th>
+                     <th>Status</th>
+                     <th>Color</th>
+                  </tr>
+               </thead>
+               <tbody>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <!-- You MUST include jQuery before Fomantic -->
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
+      <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/1.11.5/js/dataTables.semanticui.min.js"></script>
+      <script src="assets/js/myFunctions.js"></script>
+      <script></script>
+      <script></script>
+      <script>
+         $( document ).ready(function() {
+           $.ajax({
+              type: "POST",
+              url: "api/cities/check_if_table_exists_db.php",
+              dataType:"JSON",
+              data: {
+                 },
+              beforeSend: function(xhr) {
+
+              },
+              error: function(qXHR, textStatus, errorThrow) {
+                console.log("error5");
+              },
+
+              success: function(data, textStatus, jqXHR) {
+                    console.log(data);
+                    if (data['msg'] == "Table does not exist") {
+                       window.open('config.html',"_self");
+                    }else {
+                      // Get whole the data and oad it in Table
+                        get_all_data();
+
+                        // Reset and reload the table content
+                        $('#tableReloadBtn').click(function(){
+                        get_all_data();
+                        });
+                    }
+                }
+            });
+
+
+           // Initilize the calendar
+             calendarsInit();
+
+             // Searchbox functions
+             searchDateRange();
+
+         });
+
+      </script>
+   </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <link rel="icon" href="assets/img/favicon.png">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Code Challenge</title>
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css">
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.semanticui.min.css">
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.semanticui.min.css">
+   </head>
+   <body>
+      <div class="ui centered grid">
+         <div class="ui centred container">
+            <div class="ui  segment" style="margin-top:20px;">
+               <div class="ui icon header">You see this page, because there is no table in database</div>
+               <br>
+               <br>
+               <button id="startConfig" class="ui blue labeled icon button"><i class="table icon"></i>Start config</button>
+               <br>
+               <br>
+               <span id="tableCreatedText" class="ui green large text" ></span>
+               <br>
+               <br>
+               <span id="dataLoadedText" class="ui green large text" style="display:none;">Data loaded in Table</span>
+               <br>
+               <br>
+               <button id="showTable" class="ui yellow labeled icon button" style="display:none;"><i class="border all icon"></i>Show the table</button>
+            </div>
+         </div>
+      </div>
+      <!-- You MUST include jQuery before Fomantic -->
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
+      <script src="assets/js/myFunctions.js"></script>
+      <script></script>
+      <script>
+         $( document ).ready(function() {
+
+         // check_if_table_exists();
+
+         $('#showTable').click(function(){
+           window.open('.',"_self");
+         });
+
+         $('#startConfig').click(function(){
+             check_if_table_exists();
+         });
+
+
+         });
+
+      </script>
+   </body>
+</html>
